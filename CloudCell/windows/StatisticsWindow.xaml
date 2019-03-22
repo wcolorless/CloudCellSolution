@@ -1,0 +1,45 @@
+﻿<Window x:Class="CloudCell.StatisticsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CloudCell"
+        mc:Ignorable="d"
+        Title="AddFunction" Height="300" Width="700" WindowStyle="None" WindowStartupLocation="CenterScreen" ResizeMode="CanMinimize" BorderBrush="Black" BorderThickness="1">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="230"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF88ABDE" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <Menu FontFamily="Consolas" FontSize="19">
+                <MenuItem Header="Статистика">
+                    <MenuItem Header="Открыть" Command="{Binding OpenStatisticsCommand}"/>
+                    <MenuItem Header="Сохранить" Command="{Binding SaveStatisticsCommand}"/>
+                </MenuItem>
+                <MenuItem Header="Выход" Click="CloseAppBtn"/>
+            </Menu>
+        </Grid>
+        <Grid Grid.Row="2">
+            <ScrollViewer x:Name="DataGrid">
+                <DataGrid  AutoGenerateColumns="False"  ItemsSource="{Binding CloudService.Functions}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Имя функции" Binding="{Binding Path=FunctionName, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Всего запросов" Binding="{Binding Path=Statistics.RequestCount, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Данных принято (байт)" Binding="{Binding Path=Statistics.DataReceive, Mode=OneWay}"/>
+                        <DataGridTextColumn Header="Процессорное время" Binding="{Binding Path=Statistics.TickCounter, Mode=OneWay}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </ScrollViewer>
+        </Grid>
+        <Grid Grid.Row="3" Background="#FFE6A8A8">
+
+        </Grid>
+
+    </Grid>
+</Window>

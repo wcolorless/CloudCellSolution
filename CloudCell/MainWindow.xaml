@@ -1,0 +1,60 @@
+﻿<Window x:Class="CloudCell.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CloudCell"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="600" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="Black" BorderThickness="1">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="25"/>
+            <RowDefinition Height="430"/>
+            <RowDefinition Height="15"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#FF88ABDE" MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+            <TextBlock HorizontalAlignment="Center" Margin="0,1,0,0" TextWrapping="Wrap" Text="CloudCell" VerticalAlignment="Center" FontFamily="Consolas" FontSize="16" FontWeight="Bold"/>
+
+        </Grid>
+        <Grid Grid.Row="1">
+            <Menu FontFamily="Consolas" FontSize="18">
+                <MenuItem Header="Сервис">
+                    <MenuItem Header="Создать" Click="CreateNewServiceBtn"/>
+                    <MenuItem Header="Открыть" Click="OpenExistServiceBtn"/>
+                    <MenuItem Header="Сохранить" Click="SaveCurrentServiceBtn"/>
+                    <Separator/>
+                    <MenuItem Header="Запустить все функции" Click="StartAllFunctionBtn"/>
+                    <MenuItem Header="Остановить все функции" Click="StopAllFunctionBtn"/>
+                </MenuItem>
+                <MenuItem Header="Фунция">
+                    <MenuItem Header="Добавить" Click="AddNewFunctionBtn"/>
+                </MenuItem>
+                <MenuItem Header="Логи" Click="OpenLogWindowBtn"/>
+                <MenuItem Header="Статистика" Click="OpenStatisticsBtn"/>
+                <MenuItem Header="Выход" Click="CloseAppBtn"/>
+            </Menu>
+        </Grid>
+        <Grid Grid.Row="2">
+            <ListBox x:Name="ServiceListBlock" ItemsSource="{Binding Functions}" SelectedItem="{Binding SelectedItem}" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ListBox.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="{Binding SelectedItem.Status}" Command="{Binding SwitchStateCommand}" CommandParameter="{Binding SelectedItem}" />
+                        <MenuItem Header="Редактировать" Command="{Binding EditListenerCommand}" CommandParameter="{Binding SelectedItem}"/>
+                        <MenuItem Header="Удалить" Command="{Binding RemoveFunctionCommand}" CommandParameter="{Binding SelectedItem}"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <WrapPanel>
+                            <TextBlock  FontSize="16" FontWeight="Bold" Text="{Binding FunctionName}"/>
+                        </WrapPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+        <Grid Grid.Row="3" Background="#FFE6A8A8">
+
+        </Grid>
+    </Grid>
+</Window>
